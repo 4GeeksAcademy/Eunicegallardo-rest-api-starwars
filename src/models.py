@@ -8,12 +8,28 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
+    # Esto es para que cuando se haga un print nos devuelba este mesanje
     def __repr__(self):
-        return '<User %r>' % self.username
+        return f"User with email {self.email} and id {self.id}"
 
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
+            "is_active": self.is_active
             # do not serialize the password, its a security breach
+        }
+    
+class Planet(db.Model):
+    __tablename__ = 'planet'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=False, nullable=False)
+
+    def __repr__(self):
+        return f'El planeta con {self.name} con ID: {self.id}'
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name
         }
